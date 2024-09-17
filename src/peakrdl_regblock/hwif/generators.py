@@ -20,7 +20,7 @@ class HWIFStructGenerator(RDLFlatStructGenerator):
 
         self.hwif_report_stack = [hwif_name]
 
-    def push_struct(self, type_name: str, inst_name: str, array_dimensions: Optional[List[int]] = None, packed: bool = False) -> None: # type: ignore
+    def push_struct(self, type_name: str, inst_name: str, array_dimensions: Optional[List[int]] = None, packed: bool = True) -> None: # type: ignore
         super().push_struct(type_name, inst_name, array_dimensions, packed)
 
         if array_dimensions:
