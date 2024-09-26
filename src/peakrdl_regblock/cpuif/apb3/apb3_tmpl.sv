@@ -9,7 +9,7 @@ always_ff {{get_always_ff_event(cpuif.reset)}} begin
         cpuif_wr_data <= '0;
     end else begin
         if(~is_active) begin
-            if({{cpuif.signal("psel")}}) begin
+            if({{ cpuif.signal("psel") }} & {{ cpuif.signal("penable") }} ) begin
                 is_active <= '1;
                 cpuif_req <= '1;
                 cpuif_req_is_wr <= {{cpuif.signal("pwrite")}};
