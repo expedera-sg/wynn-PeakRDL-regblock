@@ -5,7 +5,11 @@ package {{ds.package_name}};
 
     localparam {{ds.module_name.upper()}}_DATA_WIDTH = {{ds.cpuif_data_width}};
     localparam {{ds.module_name.upper()}}_MIN_ADDR_WIDTH = {{ds.addr_width}};
+{%- for key, value in reg_addr_param_dict.items() %}
+    parameter {{ key }} = {{ value }};
+{%- endfor %}
 
     {{hwif.get_package_contents()|indent}}
+
 endpackage
 {# (eof newline anchor) #}

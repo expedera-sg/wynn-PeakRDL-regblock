@@ -124,6 +124,7 @@ class RegblockExporter:
             top_node = node.top
         else:
             top_node = node
+#Debugging line for extracting path
 
         self.ds = DesignState(top_node, kwargs)
 
@@ -163,6 +164,11 @@ class RegblockExporter:
         readback_implementation = self.readback.get_implementation()
 
         # Build Jinja template context
+
+        #generating register map for params:ZUBIN's Contributions
+        reg_addr_param_dict = {}
+        for register in top_node.registers():
+            reg_addr_param_dict[(register.inst_name.upper()) + "_ADDR"] = register.raw_absolute_address        
         context = {
             "cpuif": self.cpuif,
             "hwif": self.hwif,
@@ -179,8 +185,8 @@ class RegblockExporter:
             "get_always_ff_event": self.dereferencer.get_always_ff_event,
             "ds": self.ds,
             "kwf": kwf,
+            'reg_addr_param_dict': reg_addr_param_dict,
         }
-
         # Write out design
         os.makedirs(output_dir, exist_ok=True)
         package_file_path = os.path.join(output_dir, self.ds.package_name + ".sv")
